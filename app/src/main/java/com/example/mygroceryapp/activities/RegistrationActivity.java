@@ -22,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegestrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     Button signUp;
     EditText name,email,password;
@@ -35,7 +35,7 @@ public class RegestrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regestration);
+        setContentView(R.layout.activity_registration);
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -52,7 +52,7 @@ public class RegestrationActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegestrationActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
             }
         });
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +104,12 @@ public class RegestrationActivity extends AppCompatActivity {
                             database.getReference().child("Users").child(id).setValue(userModel);
                             progressBar.setVisibility(View.GONE);
 
-                            Toast.makeText(RegestrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegestrationActivity.this, HomeActivity.class));
+                            Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         }
                         else {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(RegestrationActivity.this, "Error:"+task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Error:"+task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

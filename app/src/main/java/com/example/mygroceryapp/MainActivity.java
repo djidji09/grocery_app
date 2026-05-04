@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.mygroceryapp.activities.HomeActivity;
+import com.example.mygroceryapp.activities.WelcomeActivity;
 import com.example.mygroceryapp.models.UserModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        // Redirect to Welcome screen (HomeActivity) if not logged in
+        // Redirect to Welcome screen (WelcomeActivity) if not logged in
         if (auth.getCurrentUser() == null) {
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
             finish();
             return;
         }
 
-        // Use activity_home.xml for the main dashboard
-        setContentView(R.layout.activity_home);
+        // Use activity_main.xml for the main dashboard
+        setContentView(R.layout.activity_main);
         
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.logout) {
             auth.signOut();
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
             finish();
         }
         return true;

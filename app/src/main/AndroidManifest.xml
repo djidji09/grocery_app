@@ -16,10 +16,10 @@
             android:name=".activities.ViewAllMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".activities.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegestrationActivity"
+            android:name=".activities.RegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
