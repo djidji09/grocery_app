@@ -8,8 +8,7 @@
     android:background="@color/background"
     tools:context=".activities.ViewAllMainActivity">
 
-    <!-- Modern Toolbar -->
-    <com.google.android.material.appbarLayout.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,20 +23,65 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
             app:title="All Products"
-            app:titleTextColor="@color/on_primary"
-            app:navigationIcon="?attr/homeAsUpIndicator" />
-    </com.google.android.material.appbarLayout.AppBarLayout>
+            app:titleTextColor="@color/on_primary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Search bar -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/search_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/surface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar">
+
+        <EditText
+            android:id="@+id/search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:drawablePadding="10dp"
+            android:hint="Search products..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:singleLine="true"
+            android:textColor="@color/neutral_99"
+            android:textColorHint="@color/neutral_70" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Empty state -->
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No products found"
+        android:textColor="@color/neutral_70"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Products RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/view_all_rec"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="@dimen/spacing_12"
+        android:padding="@dimen/spacing_8"
         android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

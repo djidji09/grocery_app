@@ -1,11 +1,15 @@
 package com.example.mygroceryapp.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mygroceryapp.R;
+import com.example.mygroceryapp.activities.ViewAllMainActivity;
 import com.example.mygroceryapp.adapters.HomeAdapter;
 import com.example.mygroceryapp.adapters.PopularAdapters;
 import com.example.mygroceryapp.adapters.RecommendedAdapter;
@@ -60,6 +65,26 @@ public class HomeFragment extends Fragment {
         recommendedRec = root.findViewById(R.id.recommended_rec);
         scrollView = root.findViewById(R.id.scroll_view);
         progressBar = root.findViewById(R.id.progressbar);
+
+        // --- Search bar wiring ---
+        final EditText searchBox = root.findViewById(R.id.search_box);
+        if (searchBox != null) {
+            searchBox.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    launchSearch(searchBox.getText().toString());
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        // --- "View All" links ---
+        TextView viewAllPopular = root.findViewById(R.id.view_all_popular);
+        TextView viewAllExplore = root.findViewById(R.id.view_all_explore);
+        TextView viewAllRecommended = root.findViewById(R.id.view_all_recommended);
+        if (viewAllPopular != null) viewAllPopular.setOnClickListener(v -> openAll(null));
+        if (viewAllExplore != null) viewAllExplore.setOnClickListener(v -> openAll(null));
+        if (viewAllRecommended != null) viewAllRecommended.setOnClickListener(v -> openAll(null));
 
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.GONE);
@@ -138,5 +163,21 @@ public class HomeFragment extends Fragment {
                 });
 
         return root;
+    }
+
+    private void launchSearch(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            Toast.makeText(getActivity(), "Type something to search", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(getActivity(), ViewAllMainActivity.class);
+        intent.putExtra(ViewAllMainActivity.EXTRA_SEARCH, query.trim());
+        startActivity(intent);
+    }
+
+    private void openAll(String type) {
+        Intent intent = new Intent(getActivity(), ViewAllMainActivity.class);
+        if (type != null) intent.putExtra(ViewAllMainActivity.EXTRA_TYPE, type);
+        startActivity(intent);
     }
 }
