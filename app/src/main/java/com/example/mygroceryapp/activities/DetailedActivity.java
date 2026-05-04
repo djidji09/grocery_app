@@ -76,24 +76,30 @@ public class DetailedActivity extends AppCompatActivity {
         rating = findViewById(R.id.detailed_rating);
         description = findViewById(R.id.detailed_dec);
 
-        if (viewAllModel !=  null){
-            Glide.with(getApplicationContext()).load(viewAllModel.getImg_url()).into(detailedImg);
-            rating.setText(viewAllModel.getRating());
-            description.setText(viewAllModel.getDescription());
-            price.setText("price :$"+viewAllModel.getPrice()+"/kg");
+        if (viewAllModel != null) {
+            if (viewAllModel.getImg_url() != null) {
+                Glide.with(getApplicationContext()).load(viewAllModel.getImg_url()).into(detailedImg);
+            }
+            rating.setText(viewAllModel.getRating() != null ? viewAllModel.getRating() : "0.0");
+            description.setText(viewAllModel.getDescription() != null ? viewAllModel.getDescription() : "");
 
+            String unit = "/kg";
+            String type = viewAllModel.getType();
+            if ("eggs".equals(type)) {
+                unit = "/dozen";
+            } else if ("milk".equals(type)) {
+                unit = "/litre";
+            }
+            price.setText("Price : $" + viewAllModel.getPrice() + unit);
             totalPrice = viewAllModel.getPrice() * totalQuantity;
 
-            if (viewAllModel.getType().equals("eggs")){
-                price.setText("price :$"+viewAllModel.getPrice()+"/dazen");
-                totalPrice = viewAllModel.getPrice() * totalQuantity;
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(viewAllModel.getName() != null ? viewAllModel.getName() : "Product");
             }
-            if (viewAllModel.getType().equals("milk")){
-                price.setText("price :$"+viewAllModel.getPrice()+"/litre");
-                totalPrice = viewAllModel.getPrice() * totalQuantity;
-            }
-
-
+        } else {
+            Toast.makeText(this, "Product details unavailable", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
 
         addToCart = findViewById(R.id.add_to_cart);

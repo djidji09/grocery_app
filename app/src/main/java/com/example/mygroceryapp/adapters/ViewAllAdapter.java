@@ -36,25 +36,29 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(list.get(position).getImg_url()).into(holder.imageView);
-        holder.name.setText(list.get(position).getName());
-        holder.description.setText(list.get(position).getDescription());
-        holder.rating.setText(list.get(position).getRating());
-        holder.price.setText(list.get(position).getPrice()+"/kg");
+        ViewAllModel item = list.get(position);
+        if (item.getImg_url() != null) {
+            Glide.with(context).load(item.getImg_url()).into(holder.imageView);
+        }
+        holder.name.setText(item.getName() != null ? item.getName() : "");
+        holder.description.setText(item.getDescription() != null ? item.getDescription() : "");
+        holder.rating.setText(item.getRating() != null ? item.getRating() : "0.0");
 
-        if (list.get(position).getType().equals("eggs")){
-            holder.price.setText(list.get(position).getPrice()+"/dazen");
+        String unit = "/kg";
+        String type = item.getType();
+        if ("eggs".equals(type)) {
+            unit = "/dozen";
+        } else if ("milk".equals(type)) {
+            unit = "/litre";
         }
-        if (list.get(position).getType().equals("milk")){
-            holder.price.setText(list.get(position).getPrice()+"/litre");
-        }
+        holder.price.setText("$" + item.getPrice() + unit);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("detail",list.get(position));
+                intent.putExtra("detail", item);
                 context.startActivity(intent);
             }
         });
