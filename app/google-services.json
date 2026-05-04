@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70570191146",
+    "project_id": "mygrocery-app-c4bbb",
+    "storage_bucket": "mygrocery-app-c4bbb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70570191146:android:26e63af59d476fae7c9653",
+        "android_client_info": {
+          "package_name": "com.example.mygroceryapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmW5fv3eFzJwTWabwY83VCcqmEBzz7o14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
